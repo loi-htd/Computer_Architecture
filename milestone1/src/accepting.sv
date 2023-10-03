@@ -6,25 +6,28 @@ module accepting (
     input logic quarter_i,
 
     // output
-    output logic [5:0] deposit_o
+    output logic [5:0] deposit_o // maximum off deposit is 40 cents
   );
 
   // Change to be dispensed
-  always @(posedge clk_i) begin : proc_insert_coin
+  always @(posedge clk_i) begin : proc_coin
+    // the deposit is less than 20 cent
+    // new_deposit = old_deposit + coin's value
     if (deposit_o < 20) begin
       if (nickle_i)
-          deposit_o <= deposit_o + 5;
+        deposit_o <= deposit_o + 5;
       else if (dime_i)
-          deposit_o <= deposit_o + 10;
+        deposit_o <= deposit_o + 10;
       else if (quarter_i)
-          deposit_o <= deposit_o + 25;
-    end else begin
+        deposit_o <= deposit_o + 25;
+    end else begin  // the deposit exceeds 20 cent
+      // reset to zero and add new value
       if (nickle_i)
-          deposit_o <= 5;
+        deposit_o <= 5;
       else if (dime_i)
-          deposit_o <= 10;
+        deposit_o <= 10;
       else if (quarter_i)
-          deposit_o <= 25;
+        deposit_o <= 25;
       else deposit_o <= 0;
     end
   end

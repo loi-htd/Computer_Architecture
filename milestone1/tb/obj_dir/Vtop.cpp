@@ -12,9 +12,11 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vtop__Syms(contextp(), _vcname__, this)}
     , clk_i{vlSymsp->TOP.clk_i}
-    , rst_ni{vlSymsp->TOP.rst_ni}
-    , button_i{vlSymsp->TOP.button_i}
-    , led_o{vlSymsp->TOP.led_o}
+    , nickle_i{vlSymsp->TOP.nickle_i}
+    , dime_i{vlSymsp->TOP.dime_i}
+    , quarter_i{vlSymsp->TOP.quarter_i}
+    , soda_o{vlSymsp->TOP.soda_o}
+    , change_o{vlSymsp->TOP.change_o}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

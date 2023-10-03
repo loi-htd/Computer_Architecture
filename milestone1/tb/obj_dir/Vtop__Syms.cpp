@@ -25,5 +25,5 @@ Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep, Vtop* mode
     TOP.__Vconfigure(true);
     // Setup scopes
     __Vscope_top__dut.configure(this, name(), "top.dut", "dut", -12, VerilatedScope::SCOPE_OTHER);
-    __Vscope_top__dut__proc_assertions.configure(this, name(), "top.dut.proc_assertions", "proc_assertions", -12, VerilatedScope::SCOPE_OTHER);
+    __Vscope_top__dut__proc_setup_past.configure(this, name(), "top.dut.proc_setup_past", "proc_setup_past", -12, VerilatedScope::SCOPE_OTHER);
 }

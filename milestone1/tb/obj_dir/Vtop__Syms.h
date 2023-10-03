@@ -30,7 +30,7 @@ class Vtop__Syms final : public VerilatedSyms {
 
     // SCOPE NAMES
     VerilatedScope __Vscope_top__dut;
-    VerilatedScope __Vscope_top__dut__proc_assertions;
+    VerilatedScope __Vscope_top__dut__proc_setup_past;
 
     // CONSTRUCTORS
     Vtop__Syms(VerilatedContext* contextp, const char* namep, Vtop* modelp);

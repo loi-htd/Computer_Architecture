@@ -1,17 +1,20 @@
 module wrapper (
   // input
   input logic        CLOCK_50,
-  input logic [2:0]  KEY,
+  input logic [2:0]  COIN,
 
   // output
-  output logic [6:0] HEX0
+  output logic  SODA,
+  output logic [2:0] CHANGE
 );
 
-  design_2 dut (
-    .clk_i   (CLOCK_50),
-    .rst_ni  (KEY[0]  ),
-    .button_i(~KEY[2] ),
-    .led_o   (HEX0    )
+  design_1 dut (
+    .clk_i  (CLOCK_50),
+    .nickle_i (COIN[0]),
+    .dime_i (COIN[1]),
+    .quarter_i  (COIN[2]),
+    .soda_o (SODA),
+    .change_o (CHANGE[2:0])
   );
 
 endmodule : wrapper

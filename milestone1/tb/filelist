@@ -1,1 +1,3 @@
-../src/design_1.sv
+../src/vending_machine.sv
+../src/accepting.sv
+../src/dispending.sv

@@ -26,9 +26,11 @@ class Vtop VL_NOT_FINAL : public VerilatedModel {
     // The application code writes and reads these signals to
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk_i,0,0);
-    VL_IN8(&rst_ni,0,0);
-    VL_IN8(&button_i,0,0);
-    VL_OUT8(&led_o,6,0);
+    VL_IN8(&nickle_i,0,0);
+    VL_IN8(&dime_i,0,0);
+    VL_IN8(&quarter_i,0,0);
+    VL_OUT8(&soda_o,0,0);
+    VL_OUT8(&change_o,2,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

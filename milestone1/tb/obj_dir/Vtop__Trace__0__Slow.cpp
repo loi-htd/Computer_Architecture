@@ -11,47 +11,43 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBit(c+5,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"rst_ni",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"button_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+8,"led_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 6,0);
+    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
     tracep->pushNamePrefix("top ");
-    tracep->declBit(c+5,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"rst_ni",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"button_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+8,"led_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 6,0);
+    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
     tracep->pushNamePrefix("dut ");
-    tracep->declBit(c+5,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"rst_ni",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"button_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+8,"led_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 6,0);
-    tracep->declBit(c+1,"inc",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1);
-    tracep->declBus(c+2,"counter",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 3,0);
-    tracep->declBit(c+3,"pastvld",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1);
-    tracep->pushNamePrefix("button0 ");
-    tracep->declBit(c+5,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"rst_ni",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"button_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+1,"stable_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    {
-        const char* __VenumItemNames[]
-        = {"IDLE", "PRESS", "HOLD"};
-        const char* __VenumItemValues[]
-        = {"0", "1", "10"};
-        tracep->declDTypeEnum(1, "button.state_e", 3, 2, __VenumItemNames, __VenumItemValues);
-    }
-    tracep->declBus(c+9,"state_d",1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 1,0);
-    tracep->declBus(c+4,"state_q",1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 1,0);
+    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
+    tracep->declBit(c+1,"rst",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1);
+    tracep->declBus(c+2,"deposit",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 5,0);
+    tracep->pushNamePrefix("accepting_i ");
+    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+1,"rst_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+2,"deposit_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
     tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("counter0 ");
-    tracep->declBit(c+5,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"rst_ni",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+1,"inc_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+2,"counter_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 3,0);
-    tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("hexled0 ");
-    tracep->declBus(c+2,"data_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1, 3,0);
-    tracep->declBus(c+8,"hex_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 6,0);
+    tracep->pushNamePrefix("dispending_o ");
+    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+2,"deposit_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
+    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
+    tracep->declBit(c+1,"rst_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+3,"change_tmp",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 5,0);
     tracep->popNamePrefix(3);
 }
 
@@ -95,13 +91,13 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
-    bufp->fullBit(oldp+1,((1U == (IData)(vlSelf->top__DOT__dut__DOT__button0__DOT__state_q))));
-    bufp->fullCData(oldp+2,(vlSelf->top__DOT__dut__DOT__counter),4);
-    bufp->fullBit(oldp+3,(vlSelf->top__DOT__dut__DOT__pastvld));
-    bufp->fullCData(oldp+4,(vlSelf->top__DOT__dut__DOT__button0__DOT__state_q),2);
-    bufp->fullBit(oldp+5,(vlSelf->clk_i));
-    bufp->fullBit(oldp+6,(vlSelf->rst_ni));
-    bufp->fullBit(oldp+7,(vlSelf->button_i));
-    bufp->fullCData(oldp+8,(vlSelf->led_o),7);
-    bufp->fullCData(oldp+9,(vlSelf->top__DOT__dut__DOT__button0__DOT__state_d),2);
+    bufp->fullBit(oldp+1,(vlSelf->top__DOT__dut__DOT__rst));
+    bufp->fullCData(oldp+2,(vlSelf->top__DOT__dut__DOT__deposit),6);
+    bufp->fullCData(oldp+3,(vlSelf->top__DOT__dut__DOT__dispending_o__DOT__change_tmp),6);
+    bufp->fullBit(oldp+4,(vlSelf->clk_i));
+    bufp->fullBit(oldp+5,(vlSelf->nickle_i));
+    bufp->fullBit(oldp+6,(vlSelf->dime_i));
+    bufp->fullBit(oldp+7,(vlSelf->quarter_i));
+    bufp->fullBit(oldp+8,(vlSelf->soda_o));
+    bufp->fullCData(oldp+9,(vlSelf->change_o),3);
 }

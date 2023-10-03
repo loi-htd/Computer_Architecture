@@ -14,14 +14,14 @@ class Vtop___024root final : public VerilatedModule {
 
     // DESIGN SPECIFIC STATE
     VL_IN8(clk_i,0,0);
-    VL_IN8(rst_ni,0,0);
-    VL_IN8(button_i,0,0);
-    VL_OUT8(led_o,6,0);
-    CData/*3:0*/ top__DOT__dut__DOT__counter;
-    CData/*0:0*/ top__DOT__dut__DOT__pastvld;
-    CData/*0:0*/ top__DOT__dut__DOT___Vpast_0_0;
-    CData/*1:0*/ top__DOT__dut__DOT__button0__DOT__state_d;
-    CData/*1:0*/ top__DOT__dut__DOT__button0__DOT__state_q;
+    VL_IN8(nickle_i,0,0);
+    VL_IN8(dime_i,0,0);
+    VL_IN8(quarter_i,0,0);
+    VL_OUT8(soda_o,0,0);
+    VL_OUT8(change_o,2,0);
+    CData/*0:0*/ top__DOT__dut__DOT__rst;
+    CData/*5:0*/ top__DOT__dut__DOT__deposit;
+    CData/*5:0*/ top__DOT__dut__DOT__dispending_o__DOT__change_tmp;
     CData/*0:0*/ __Vclklast__TOP__clk_i;
     VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 

@@ -37,10 +37,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->quarter_i = VL_RAND_RESET_I(1);
     vlSelf->soda_o = VL_RAND_RESET_I(1);
     vlSelf->change_o = VL_RAND_RESET_I(3);
-    vlSelf->top__DOT__dut__DOT__rst = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__dut__DOT__deposit = VL_RAND_RESET_I(6);
-    vlSelf->top__DOT__dut__DOT__dispending_o__DOT__change_tmp = VL_RAND_RESET_I(6);
-    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
-        vlSelf->__Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
-    }
+    vlSelf->top__DOT__dut__DOT___Vpast_0_0 = VL_RAND_RESET_I(6);
+    vlSelf->top__DOT__dut__DOT___Vpast_1_0 = VL_RAND_RESET_I(6);
+    vlSelf->top__DOT__dut__DOT___Vpast_2_0 = VL_RAND_RESET_I(6);
 }

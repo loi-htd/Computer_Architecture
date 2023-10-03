@@ -9,7 +9,7 @@ module vending_machine (
     output logic soda_o,
     output logic [2:0] change_o
   );
-  logic rst;
+
   logic [5:0] deposit;
 
   accepting accepting_i (
@@ -17,7 +17,6 @@ module vending_machine (
     .nickle_i (nickle_i),
     .dime_i   (dime_i),
     .quarter_i(quarter_i),
-    .rst_i    (rst),
     .deposit_o(deposit)
   );
 
@@ -25,25 +24,25 @@ module vending_machine (
     .clk_i    (clk_i),
     .deposit_i(deposit),
     .soda_o   (soda_o),
-    .change_o (change_o),
-    .rst_o    (rst)
+    .change_o (change_o)
   );
 
   `ifdef VERILATOR
     /*verilator lint_off UNUSED*/
     always @(posedge clk_i) begin : proc_setup_past
-      // be only received soda when deposit is greater than or equal to 20 cents.
-      if (soda_o)
-        assert (deposit < 20); 
-
-      //  assert that the vending machine can change correctly.
-      // case (deposit)
-      //   20: assert (change_o != 3'b000);
-      //   25: assert (change_o != 3'b001);
-      //   30: assert (change_o != 3'b010);
-      //   25: assert (change_o != 3'b011);
-      //   40: assert (change_o != 3'b100);
-      // endcase 
+      // only received soda when deposit is greater than or equal to 20 cents
+      if (soda_o) begin
+        $display("deposit = %d, receive soda, change = %b", $past(deposit), change_o);
+        assert ($past(deposit) >= 20); 
+      end
+      // assert that the vending machine can change correctly.
+      case ($past(deposit))
+        20: assert (change_o == 3'b000);
+        25: assert (change_o == 3'b001);
+        30: assert (change_o == 3'b010);
+        35: assert (change_o == 3'b011);
+        40: assert (change_o == 3'b100);
+      endcase 
     end
     /*verilator lint_on UNUSED*/
   `endif

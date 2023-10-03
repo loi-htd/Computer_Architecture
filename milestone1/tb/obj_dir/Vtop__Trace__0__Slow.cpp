@@ -11,43 +11,39 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
+    tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+2,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+3,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+4,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+6,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
     tracep->pushNamePrefix("top ");
-    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
+    tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+2,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+3,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+4,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+6,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
     tracep->pushNamePrefix("dut ");
-    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
-    tracep->declBit(c+1,"rst",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1);
-    tracep->declBus(c+2,"deposit",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 5,0);
+    tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+2,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+3,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+4,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+5,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+6,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
+    tracep->declBus(c+7,"deposit",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 5,0);
     tracep->pushNamePrefix("accepting_i ");
-    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+1,"rst_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+5,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+6,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBit(c+7,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+2,"deposit_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
+    tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+2,"nickle_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+3,"dime_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBit(c+4,"quarter_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+7,"deposit_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("dispending_o ");
-    tracep->declBit(c+4,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+2,"deposit_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
-    tracep->declBit(c+8,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+9,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
-    tracep->declBit(c+1,"rst_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
-    tracep->declBus(c+3,"change_tmp",-1, FST_VD_IMPLICIT,FST_VT_SV_LOGIC, false,-1, 5,0);
+    tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+7,"deposit_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
+    tracep->declBit(c+5,"soda_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
+    tracep->declBus(c+6,"change_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 2,0);
     tracep->popNamePrefix(3);
 }
 
@@ -91,13 +87,11 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
-    bufp->fullBit(oldp+1,(vlSelf->top__DOT__dut__DOT__rst));
-    bufp->fullCData(oldp+2,(vlSelf->top__DOT__dut__DOT__deposit),6);
-    bufp->fullCData(oldp+3,(vlSelf->top__DOT__dut__DOT__dispending_o__DOT__change_tmp),6);
-    bufp->fullBit(oldp+4,(vlSelf->clk_i));
-    bufp->fullBit(oldp+5,(vlSelf->nickle_i));
-    bufp->fullBit(oldp+6,(vlSelf->dime_i));
-    bufp->fullBit(oldp+7,(vlSelf->quarter_i));
-    bufp->fullBit(oldp+8,(vlSelf->soda_o));
-    bufp->fullCData(oldp+9,(vlSelf->change_o),3);
+    bufp->fullBit(oldp+1,(vlSelf->clk_i));
+    bufp->fullBit(oldp+2,(vlSelf->nickle_i));
+    bufp->fullBit(oldp+3,(vlSelf->dime_i));
+    bufp->fullBit(oldp+4,(vlSelf->quarter_i));
+    bufp->fullBit(oldp+5,(vlSelf->soda_o));
+    bufp->fullCData(oldp+6,(vlSelf->change_o),3);
+    bufp->fullCData(oldp+7,(vlSelf->top__DOT__dut__DOT__deposit),6);
 }

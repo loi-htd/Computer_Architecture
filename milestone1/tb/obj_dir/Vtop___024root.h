@@ -19,11 +19,11 @@ class Vtop___024root final : public VerilatedModule {
     VL_IN8(quarter_i,0,0);
     VL_OUT8(soda_o,0,0);
     VL_OUT8(change_o,2,0);
-    CData/*0:0*/ top__DOT__dut__DOT__rst;
     CData/*5:0*/ top__DOT__dut__DOT__deposit;
-    CData/*5:0*/ top__DOT__dut__DOT__dispending_o__DOT__change_tmp;
+    CData/*5:0*/ top__DOT__dut__DOT___Vpast_0_0;
+    CData/*5:0*/ top__DOT__dut__DOT___Vpast_1_0;
+    CData/*5:0*/ top__DOT__dut__DOT___Vpast_2_0;
     CData/*0:0*/ __Vclklast__TOP__clk_i;
-    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* const vlSymsp;

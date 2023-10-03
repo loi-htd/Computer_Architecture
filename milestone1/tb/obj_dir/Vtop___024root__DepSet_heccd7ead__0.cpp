@@ -15,7 +15,6 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     // Body
     if (((IData)(vlSelf->clk_i) & (~ (IData)(vlSelf->__Vclklast__TOP__clk_i)))) {
         Vtop___024root___sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[1U] = 1U;
     }
     // Final
     vlSelf->__Vclklast__TOP__clk_i = vlSelf->clk_i;

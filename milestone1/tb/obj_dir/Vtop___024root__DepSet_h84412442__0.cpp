@@ -22,65 +22,62 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     CData/*5:0*/ __Vdly__top__DOT__dut__DOT__deposit;
     // Body
     __Vdly__top__DOT__dut__DOT__deposit = vlSelf->top__DOT__dut__DOT__deposit;
-    VL_WRITEF("%b,%b,%b,%b,deposit = %2#, receive soda %b, change = %b\n",
-              1,((0x14U <= (IData)(vlSelf->top__DOT__dut__DOT__deposit))
-                  ? 1U : 0U),1,(IData)(vlSelf->nickle_i),
-              1,vlSelf->dime_i,1,(IData)(vlSelf->quarter_i),
-              6,vlSelf->top__DOT__dut__DOT__deposit,
-              1,(IData)(vlSelf->soda_o),3,vlSelf->change_o);
-    if (vlSelf->soda_o) {
+    if (VL_UNLIKELY(vlSelf->soda_o)) {
+        VL_WRITEF("deposit = %2#, receive soda, change = %b\n",
+                  6,vlSelf->top__DOT__dut__DOT___Vpast_0_0,
+                  3,(IData)(vlSelf->change_o));
         if (vlSymsp->_vm_contextp__->assertOn()) {
-            if (VL_UNLIKELY((0x14U > (IData)(vlSelf->top__DOT__dut__DOT___Vpast_0_0)))) {
-                VL_WRITEF("[%0t] %%Error: vending_machine.sv:42: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
+            if (VL_UNLIKELY((0x14U > (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0)))) {
+                VL_WRITEF("[%0t] %%Error: vending_machine.sv:39: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
                           64,VL_TIME_UNITED_Q(1),-12,
                           vlSymsp->name());
-                VL_STOP_MT("../src/vending_machine.sv", 42, "");
+                VL_STOP_MT("../src/vending_machine.sv", 39, "");
             }
         }
     }
-    if ((0x14U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0))) {
+    if ((0x14U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_2_0))) {
         if (vlSymsp->_vm_contextp__->assertOn()) {
             if (VL_UNLIKELY((0U != (IData)(vlSelf->change_o)))) {
+                VL_WRITEF("[%0t] %%Error: vending_machine.sv:44: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
+                          64,VL_TIME_UNITED_Q(1),-12,
+                          vlSymsp->name());
+                VL_STOP_MT("../src/vending_machine.sv", 44, "");
+            }
+        }
+    } else if ((0x19U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_2_0))) {
+        if (vlSymsp->_vm_contextp__->assertOn()) {
+            if (VL_UNLIKELY((1U != (IData)(vlSelf->change_o)))) {
+                VL_WRITEF("[%0t] %%Error: vending_machine.sv:45: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
+                          64,VL_TIME_UNITED_Q(1),-12,
+                          vlSymsp->name());
+                VL_STOP_MT("../src/vending_machine.sv", 45, "");
+            }
+        }
+    } else if ((0x1eU == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_2_0))) {
+        if (vlSymsp->_vm_contextp__->assertOn()) {
+            if (VL_UNLIKELY((2U != (IData)(vlSelf->change_o)))) {
                 VL_WRITEF("[%0t] %%Error: vending_machine.sv:46: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
                           64,VL_TIME_UNITED_Q(1),-12,
                           vlSymsp->name());
                 VL_STOP_MT("../src/vending_machine.sv", 46, "");
             }
         }
-    } else if ((0x19U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0))) {
+    } else if ((0x23U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_2_0))) {
         if (vlSymsp->_vm_contextp__->assertOn()) {
-            if (VL_UNLIKELY((1U != (IData)(vlSelf->change_o)))) {
+            if (VL_UNLIKELY((3U != (IData)(vlSelf->change_o)))) {
                 VL_WRITEF("[%0t] %%Error: vending_machine.sv:47: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
                           64,VL_TIME_UNITED_Q(1),-12,
                           vlSymsp->name());
                 VL_STOP_MT("../src/vending_machine.sv", 47, "");
             }
         }
-    } else if ((0x1eU == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0))) {
+    } else if ((0x28U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_2_0))) {
         if (vlSymsp->_vm_contextp__->assertOn()) {
-            if (VL_UNLIKELY((2U != (IData)(vlSelf->change_o)))) {
+            if (VL_UNLIKELY((4U != (IData)(vlSelf->change_o)))) {
                 VL_WRITEF("[%0t] %%Error: vending_machine.sv:48: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
                           64,VL_TIME_UNITED_Q(1),-12,
                           vlSymsp->name());
                 VL_STOP_MT("../src/vending_machine.sv", 48, "");
-            }
-        }
-    } else if ((0x23U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0))) {
-        if (vlSymsp->_vm_contextp__->assertOn()) {
-            if (VL_UNLIKELY((3U != (IData)(vlSelf->change_o)))) {
-                VL_WRITEF("[%0t] %%Error: vending_machine.sv:49: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
-                          64,VL_TIME_UNITED_Q(1),-12,
-                          vlSymsp->name());
-                VL_STOP_MT("../src/vending_machine.sv", 49, "");
-            }
-        }
-    } else if ((0x28U == (IData)(vlSelf->top__DOT__dut__DOT___Vpast_1_0))) {
-        if (vlSymsp->_vm_contextp__->assertOn()) {
-            if (VL_UNLIKELY((4U != (IData)(vlSelf->change_o)))) {
-                VL_WRITEF("[%0t] %%Error: vending_machine.sv:50: Assertion failed in %Ntop.dut.proc_setup_past: 'assert' failed.\n",
-                          64,VL_TIME_UNITED_Q(1),-12,
-                          vlSymsp->name());
-                VL_STOP_MT("../src/vending_machine.sv", 50, "");
             }
         }
     }
@@ -94,6 +91,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     }
     vlSelf->top__DOT__dut__DOT___Vpast_0_0 = vlSelf->top__DOT__dut__DOT__deposit;
     vlSelf->top__DOT__dut__DOT___Vpast_1_0 = vlSelf->top__DOT__dut__DOT__deposit;
+    vlSelf->top__DOT__dut__DOT___Vpast_2_0 = vlSelf->top__DOT__dut__DOT__deposit;
     __Vtableidx2 = (((IData)(vlSelf->top__DOT__dut__DOT__deposit) 
                      << 1U) | ((0x14U <= (IData)(vlSelf->top__DOT__dut__DOT__deposit))
                                 ? 1U : 0U));

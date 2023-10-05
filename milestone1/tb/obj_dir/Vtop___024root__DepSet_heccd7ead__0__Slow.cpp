@@ -40,4 +40,5 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__dut__DOT__deposit = VL_RAND_RESET_I(6);
     vlSelf->top__DOT__dut__DOT___Vpast_0_0 = VL_RAND_RESET_I(6);
     vlSelf->top__DOT__dut__DOT___Vpast_1_0 = VL_RAND_RESET_I(6);
+    vlSelf->top__DOT__dut__DOT___Vpast_2_0 = VL_RAND_RESET_I(6);
 }

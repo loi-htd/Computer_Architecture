@@ -22,6 +22,7 @@ class Vtop___024root final : public VerilatedModule {
     CData/*5:0*/ top__DOT__dut__DOT__deposit;
     CData/*5:0*/ top__DOT__dut__DOT___Vpast_0_0;
     CData/*5:0*/ top__DOT__dut__DOT___Vpast_1_0;
+    CData/*5:0*/ top__DOT__dut__DOT___Vpast_2_0;
     CData/*0:0*/ __Vclklast__TOP__clk_i;
 
     // INTERNAL VARIABLES

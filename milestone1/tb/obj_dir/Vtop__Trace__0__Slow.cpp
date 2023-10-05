@@ -41,7 +41,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+8,"exceed_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1);
     tracep->declBus(c+7,"deposit_o",-1,FST_VD_OUTPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
     tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("dispending_o ");
+    tracep->pushNamePrefix("dispensing_o ");
     tracep->declBit(c+1,"clk_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);
     tracep->declBus(c+7,"deposit_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1, 5,0);
     tracep->declBit(c+8,"exceed_i",-1,FST_VD_INPUT,FST_VT_VCD_WIRE, false,-1);

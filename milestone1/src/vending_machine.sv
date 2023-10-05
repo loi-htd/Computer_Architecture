@@ -11,18 +11,21 @@ module vending_machine (
   );
 
   logic [5:0] deposit;
+  logic exceed;
 
   accepting accepting_i (
     .clk_i    (clk_i),
     .nickle_i (nickle_i),
     .dime_i   (dime_i),
     .quarter_i(quarter_i),
+    .exceed_o (exceed),
     .deposit_o(deposit)
   );
 
-  dispending dispending_o (
+  dispensing dispensing_o (
     .clk_i    (clk_i),
     .deposit_i(deposit),
+    .exceed_i (exceed),
     .soda_o   (soda_o),
     .change_o (change_o)
   );
@@ -34,8 +37,8 @@ module vending_machine (
       //    the deposit will be reset to new value in the next cycle
 
       // only received soda when the deposit is greater than or equal to 20 cents
+        $display("%b,%b,%b,%b,deposit = %d, receive soda %b, change = %b",exceed,nickle_i, dime_i, quarter_i, deposit, soda_o, change_o);
       if (soda_o) begin
-        $display("deposit = %d, receive soda, change = %b", $past(deposit), change_o);
         assert ($past(deposit) >= 20); 
       end
       // assert that the vending machine can change correctly.

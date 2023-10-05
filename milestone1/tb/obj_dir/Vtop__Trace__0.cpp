@@ -30,6 +30,8 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedFst::Buffe
     bufp->chgBit(oldp+4,(vlSelf->soda_o));
     bufp->chgCData(oldp+5,(vlSelf->change_o),3);
     bufp->chgCData(oldp+6,(vlSelf->top__DOT__dut__DOT__deposit),6);
+    bufp->chgBit(oldp+7,(((0x14U <= (IData)(vlSelf->top__DOT__dut__DOT__deposit))
+                           ? 1U : 0U)));
 }
 
 void Vtop___024root__trace_cleanup(void* voidSelf, VerilatedFst* /*unused*/) {

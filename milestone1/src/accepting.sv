@@ -6,6 +6,7 @@ module accepting (
     input logic quarter_i,
 
     // output
+    output logic exceed_o,
     output logic [5:0] deposit_o // maximum off deposit is 40 cents
   );
 
@@ -21,7 +22,7 @@ module accepting (
       else if (quarter_i)
         deposit_o <= deposit_o + 25;
     end else begin  // the deposit exceeds 20 cent
-      // reset to zero and add new value
+      // reset to zero and accept new value
       if (nickle_i)
         deposit_o <= 5;
       else if (dime_i)
@@ -31,4 +32,7 @@ module accepting (
       else deposit_o <= 0;
     end
   end
+
+  assign exceed_o = (deposit_o >= 20) ? 1 : 0;
+  
 endmodule : accepting

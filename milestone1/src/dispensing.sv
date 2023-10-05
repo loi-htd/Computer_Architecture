@@ -1,4 +1,4 @@
-  module dispensing (
+module dispensing (
     // input
     input logic clk_i,
     input logic [5:0] deposit_i,
@@ -9,7 +9,7 @@
     output logic [2:0] change_o
   );
   
-  always @(posedge clk_i) begin : proc_dispending
+  always @(posedge clk_i) begin : proc_dispensing
     if (exceed_i) begin
       soda_o <= 1;
       case (deposit_i - 20)

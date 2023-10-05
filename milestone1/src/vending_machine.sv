@@ -32,15 +32,13 @@ module vending_machine (
 
   `ifdef VERILATOR
     /*verilator lint_off UNUSED*/
-    always @(posedge clk_i) begin : proc_setup_past
-      // using $past() because after the deposit exceeds 20 coins,
-      //    the deposit will be reset to new value in the next cycle
-
+    always @(posedge clk_i) begin : proc_asserting
       // only received soda when the deposit is greater than or equal to 20 cents
-        $display("%b,%b,%b,%b,deposit = %d, receive soda %b, change = %b",exceed,nickle_i, dime_i, quarter_i, deposit, soda_o, change_o);
       if (soda_o) begin
+        $display("deposit = %d, receive soda, change = %b", $past(deposit), change_o);
         assert ($past(deposit) >= 20); 
       end
+
       // assert that the vending machine can change correctly.
       case ($past(deposit))
         20: assert (change_o == 3'b000);

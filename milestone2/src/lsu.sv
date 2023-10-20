@@ -81,7 +81,7 @@ module lsu (
     end else begin  
       case (addr_sel)
         SEL_SW: begin
-
+          //
         end
         SEL_LCD: begin
           io_lcd <= st_data;
@@ -131,8 +131,8 @@ module lsu (
   end
 
   always @(posedge clk_i or negedge rst_ni) begin: proc_rw_data
-    if (rst_ni && addr_sel == SEL_DATA && st_en) begin
-      $writememh("/milestone2/mem/data_mem.data", mem_data);
+    if (rst_ni && st_en) begin
+      $writememb("/milestone2/mem/data_mem.data", mem_data);
     end
   end
 endmodule

@@ -45,10 +45,6 @@ module lsu (
   logic [7:0] mem_data [2047:0]; // Data memory (2KB)
   logic [10:0] addr_mem_data;
 
-  initial begin
-    $readmemh("/milestone2/mem/data_mem.data", mem_data);
-  end
-
   addr_sel_e addr_sel;
   assign addr_sel = (addr == ADDR_SW)   ? SEL_SW   :
                     (addr == ADDR_LCD)  ? SEL_LCD  :
@@ -62,6 +58,10 @@ module lsu (
                     (addr == ADDR_HEX2) ? SEL_HEX2 :
                     (addr == ADDR_HEX1) ? SEL_HEX1 :
                     (addr == ADDR_HEX0) ? SEL_HEX0 : SEL_DATA;
+  
+  always_comb begin : pro_load_data
+      $readmemb("mem/data_mem.data", mem_data);
+  end
 
   // Load-store logic
   always @(posedge clk_i or negedge rst_ni) begin

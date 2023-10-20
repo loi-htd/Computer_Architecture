@@ -15,19 +15,23 @@ module regfile (
   
   // Register file
   logic [31:0] registers [31:0];
-
-  // Read from register file
   initial begin
-    $readmemh("regfile.data", registers);
+    for (int i = 0; i < 32; i++) begin
+        registers[i] = 32'b0;
+    end
   end
 
-  assign rs1_data = registers[rs1_addr];
-  assign rs2_data = registers[rs2_addr];
+  // Read from register file
+  always_comb begin : proc_read_regfile
+    $readmemb("regfile.data", registers);
+    assign rs1_data = registers[rs1_addr];
+    assign rs2_data = registers[rs2_addr];
+  end
 
   // Write to register file
   always @(posedge clk_i) begin : proc_write_regfile
     if (!rst_ni) begin
-      registers[0] <= 32'h0;
+      registers[0] <= 32'b0;
       for (int i = 1; i < 32; i++) begin
         registers[i] <= 32'bx;
       end
@@ -39,7 +43,7 @@ module regfile (
   // Write data to register file
   always @(posedge clk_i) begin : proc_write_regfile_to_file
     if (rst_ni) begin
-      $writememh("regfile.data", registers);
+      $writememb("regfile.data", registers);
     end
   end
 

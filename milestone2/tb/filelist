@@ -1,2 +1,1 @@
-../src/lsu.sv
-../src/regfile.sv
+../src/ctrl_unit.sv

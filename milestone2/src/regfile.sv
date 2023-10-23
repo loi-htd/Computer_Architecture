@@ -6,7 +6,7 @@ module regfile (
   input logic [4:0] rs2_addr,
   input logic [4:0] rd_addr,
   input logic [31:0] rd_data,
-  input logic rd_wren,
+  input logic rd_wren,  // 1 if write to rd.
 
   //output
   output logic [31:0] rs1_data,

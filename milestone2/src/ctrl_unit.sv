@@ -1,18 +1,19 @@
-/* verilator lint_off UNUSED */
 module ctrl_unit(
   // input
+  /* verilator lint_off UNUSED */
   input [31:0] instr,
+  /* verilator lint_on UNUSED */
   input br_less,
   input br_equal,
 
   //output
-  output reg pc_sel,  // 0 if P C + 4, 1 if computed in ALU
-  output reg br_unsigned, // 1 if the two operands are unsigned
-  output reg rd_wren, // 1 if the instruction writes data into Regfile
-  output reg mem_wren,  // 1 if the instruction writes data into LSU.
-  output reg op_a_sel,  // 0 if rs1, 1 if P C
-  output reg op_b_sel,  // 0 if rs2, 1 if imm.
-  output reg [3:0] alu_sel,
+  output reg pc_sel,        // 0 if P C + 4, 1 if computed in ALU
+  output reg br_unsigned,   // 1 if the two operands are unsigned
+  output reg rd_wren,       // 1 if the instruction writes data into Regfile
+  output reg mem_wren,      // 1 if the instruction writes data into LSU.
+  output reg op_a_sel,      // 0 if rs1, 1 if P C
+  output reg op_b_sel,      // 0 if rs2, 1 if imm.
+  output reg [3:0] alu_sel, 
   output reg [1:0] wb_sel   // 0 if alu_data, 1 if ld_data, and 2 or 3 if pc_four
 );
 
@@ -169,5 +170,4 @@ module ctrl_unit(
       default;
     endcase
   end 
-  /* verilator lint_on UNUSED */
 endmodule

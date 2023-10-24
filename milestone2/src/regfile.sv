@@ -15,36 +15,28 @@ module regfile (
   
   // Register file
   logic [31:0] registers [31:0];
-  initial begin
-    for (int i = 0; i < 32; i++) begin
-        registers[i] = 32'b0;
-    end
-  end
 
   // Read from register file
   always_comb begin : proc_read_regfile
-    $readmemb("regfile.data", registers);
-    assign rs1_data = registers[rs1_addr];
-    assign rs2_data = registers[rs2_addr];
+    rs1_data = registers[rs1_addr];
+    rs2_data = registers[rs2_addr];
   end
 
   // Write to register file
-  always @(posedge clk_i) begin : proc_write_regfile
+  always @(posedge clk_i or negedge rst_ni) begin : proc_write_regfile
     if (!rst_ni) begin
-      registers[0] <= 32'b0;
       for (int i = 1; i < 32; i++) begin
-        registers[i] <= 32'bx;
+        registers[i] <= 32'h0;
       end
-    end else if (rd_wren) begin
-      registers[rd_addr] <= rd_data;
+    end else begin
+      if (rd_wren)
+        registers[rd_addr] <= rd_data;
     end
-  end
-
-  // Write data to register file
-  always @(posedge clk_i) begin : proc_write_regfile_to_file
-    if (rst_ni) begin
-      $writememb("regfile.data", registers);
-    end
+    `ifdef VERILATOR
+      /*verilator lint_off UNUSED*/
+      $writememh("./mem/regfile.data", registers);
+      /*verilator lint_on UNUSED*/
+    `endif
   end
 
 endmodule : regfile

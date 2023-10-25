@@ -1,8 +1,6 @@
 module ctrl_unit(
   // input
-  /* verilator lint_off UNUSED */
   input [31:0] instr,
-  /* verilator lint_on UNUSED */
   input br_less,
   input br_equal,
 
@@ -16,6 +14,11 @@ module ctrl_unit(
   output reg [3:0] alu_op, 
   output reg [1:0] wb_sel   // 0 if alu_data, 1 if ld_data, and 2 or 3 if br_four
 );
+
+  /* verilator lint_off UNUSED */
+  logic unused;
+  assign unused = |instr[31] || |instr[29:15] || |instr[11:7] || |instr[1:0];
+  /* verilator lint_on UNUSED */
 
   localparam [4:0]
         // OP_LUI    = 5'b01101,

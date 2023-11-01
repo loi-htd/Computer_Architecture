@@ -23,11 +23,11 @@ void initial(Vtop *dut) {
 }
 
 void dut_clock(Vtop *dut, VerilatedFstC *vtrace) {
-  sim_time = sim_unit * 800 + 1;
+  sim_time = sim_unit * 1000 + 1;
   if (vtrace)
     vtrace->dump(sim_time); // Dump values to update inputs
 
-  sim_time = sim_time + 320;
+  sim_time = sim_time + 400;
   dut->clk_i = 0;
   dut->eval();
   if (vtrace)
@@ -35,7 +35,7 @@ void dut_clock(Vtop *dut, VerilatedFstC *vtrace) {
 
   monitor_outputs(dut);        // Values are "stable" to monitor
 
-  sim_time = sim_time + 400;
+  sim_time = sim_time + 500;
   dut->clk_i = 1;
   dut->eval();
   if (vtrace) {

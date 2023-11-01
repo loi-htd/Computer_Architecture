@@ -3,8 +3,9 @@ module lsu (
   input logic clk_i,
   input logic rst_ni,
   input logic [31:0] addr,
+  input logic [3:0]  ld_op ,    // ld_op[3] = 1 if signed, [2][1][0] = 111 if lw, sw; [2][1][0] = 011 if lh, sh; [2][1][0] = 001 if lb, sb 
   input logic [31:0] st_data,
-  input logic st_en,  //1 if write, 0 if read
+  input logic st_en,            //1 if write, 0 if read
   input logic [31:0] io_sw,
 
   // output
@@ -26,7 +27,7 @@ module lsu (
   logic unused;
   assign unused = |addr[31:12];
   /* verilator lint_on UNUSED */
-  parameter ADDR_SW   = 12'h9ff,
+  parameter ADDR_SW   = 12'h900,
             ADDR_LCD  = 12'h8a0,
             ADDR_LEDG = 12'h890,
             ADDR_LEDR = 12'h880,
@@ -49,6 +50,11 @@ module lsu (
   // Data memory (2KB)
   logic [7:0] mem_data [2047:0]; 
   
+  initial begin
+    $writememh("../mem/mem_data.data",mem_data);
+    $readmemh("../mem/mem_data.data",mem_data);
+    
+  end
   // Peripheral in Buffer
   logic [31:0] periph_in;
 
@@ -57,6 +63,9 @@ module lsu (
 
   // Local variable
   logic [11:0] addr_memory;
+  logic [31:0] lw_data;
+
+
   assign addr_memory = addr[11:0];
 
   periph_out_addr_e addr_sel;
@@ -86,14 +95,7 @@ module lsu (
     if (!rst_ni) begin
       for (int i = 0; i < 13; i++)
         data_out[i] <= 32'b0;
-      // for (int i = 0; i < 2048; i++) begin
-      //   mem_data[i] <= 8'b0;  // Non-delayed for verilator
-      // end
-      // `ifdef VERILATOR
-      //   /*verilator lint_off UNUSED*/
-      //     $writememh("./mem/mem_data.data", mem_data);
-      //   /*verilator lint_on UNUSED*/
-      // `endif
+
     end 
     else begin 
       case (addr_sel)
@@ -102,30 +104,59 @@ module lsu (
       end
       SEL_DATA: begin
         if (st_en) begin      // store data
-          mem_data[addr_memory[10:0]]   <= st_data[7:0];
-          mem_data[addr_memory[10:0]+1] <= st_data[15:8];
-          mem_data[addr_memory[10:0]+2] <= st_data[23:16];
-          mem_data[addr_memory[10:0]+3] <= st_data[31:24];
-          data_out[addr_sel] <= st_data; 
+          if (ld_op[0]) mem_data[addr_memory[10:0]]     <= st_data[7:0] ;
+          if (ld_op[1]) mem_data[addr_memory[10:0]+1]   <= st_data[15:8] ;
+          if (ld_op[2]) mem_data[addr_memory[10:0]+2]   <= st_data[23:16] ;
+          if (ld_op[2]) mem_data[addr_memory[10:0]+3]   <= st_data[31:24] ;
 
-          `ifdef VERILATOR
-            /*verilator lint_off UNUSED*/
-            if (addr_sel == SEL_DATA)
-              $writememh("../mem/mem_data.data", mem_data);
-            /*verilator lint_on UNUSED*/
-          `endif
-        end else              // read data
-          data_out[addr_sel] <= {mem_data[addr_memory[10:0]+3], mem_data[addr_memory[10:0]+2], 
-                                 mem_data[addr_memory[10:0]+1], mem_data[addr_memory[10:0]]};
+        end
       end 
       default:                // peripheral out
         data_out[addr_sel] <= st_data; 
       endcase
+
     end
   end
 
+  `ifdef VERILATOR
+    /*verilator lint_off UNUSED*/
+    always_ff @(posedge clk_i) begin : proc_store_data
+      if (($past(addr_sel) == SEL_DATA) && $past(st_en))
+        $writememh("../mem/mem_data.data", mem_data);
+    end
+    /*verilator lint_on UNUSED*/
+  `endif
+
   // Load data
-  assign ld_data = data_out[addr_sel];
+  always_comb begin : proc_load_data
+    lw_data         = 0;
+    if (addr_sel == SEL_DATA && !st_en) begin
+      lw_data[7:0]   = mem_data[addr_memory[10:0]];
+      lw_data[15:8]  = mem_data[addr_memory[10:0]+1];
+      lw_data[23:16] = mem_data[addr_memory[10:0]+2];
+      lw_data[31:24] = mem_data[addr_memory[10:0]+3];
+
+      if (!ld_op[0]) 
+        ld_data = 0;
+      else begin
+        ld_data[7:0]     = lw_data[7:0];
+
+        if (!ld_op[1]) 
+          ld_data[31:8]  = {24{lw_data[7] && ld_op[3]}} ;
+        else begin   
+          ld_data[15:8]  = lw_data[15:8];
+          
+          if (!ld_op[2]) 
+            ld_data[31:16] = {16{lw_data[15] && ld_op[3]}};
+          else begin
+              ld_data[23:16] = lw_data[23:16];
+              ld_data[31:24] = lw_data[31:24];
+              end  
+        end
+      end
+    end
+    else ld_data = data_out[addr_sel];
+  end
 
   // Update peripheral out
   assign io_hex0 = data_out[0];

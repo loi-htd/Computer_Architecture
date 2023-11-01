@@ -3,34 +3,31 @@ module alu (
 //Input
   input logic [31:0] operand_a,
   input logic [31:0] operand_b,
-  input logic [3:0] alu_op,
-  
+  input logic [31:0] rs1_data,
+  input logic [31:0] rs2_data,
+  input logic [3:0]  alu_op,
+  input logic [2:0]  br_op,			
+  input logic		 branch,
 //Output
+  output logic 		   br_sel,			
   output logic [31:0]  alu_data
 );
 
 //Local declaration
-  logic [32:0] alu_data_33bit;
+  logic   br_less;
+  logic   br_equal;
 
-// ALU cases
+// ALU calculation
 /* verilator lint_off LATCH */
-  always_comb begin 
+  always_ff begin : alu_cal
     case (alu_op)
-      4'b0000: begin						//ADD
-      	/* verilator lint_off WIDTH */				
-      	alu_data_33bit = operand_a + operand_b ;
-      	if (alu_data_33bit > 33'h0_FFFF_FFFF) alu_data = 32'hFFFF_FFFF;
-      	else alu_data =  operand_a + operand_b ;
-	end      
+      4'b0000:						//ADD			
+		alu_data =  operand_a + operand_b ; 
       
-      4'b0001: begin					  	//SUB
-	alu_data_33bit = operand_a + (~operand_b + 1);
-      	if (alu_data_33bit > 33'h0_FFFF_FFFF) alu_data = 32'hFFFF_FFFF;
-      	else alu_data =  operand_a + (~operand_b + 1);
-      	end      
-      	/* verilator lint_on WIDTH */	
+      4'b0001: 				  		//SUB
+	  	alu_data =  operand_a + (~operand_b + 1);
       	
-      4'b0010: 	begin 						//SLT
+      4'b0010: 	begin 				//SLT
       	if (operand_a[31] == 0 && operand_b[31] == 1) 	   alu_data = 0;
       	
       	else if (operand_a[31] == 1 && operand_b[31] == 0) alu_data = 1;	
@@ -41,7 +38,7 @@ module alu (
             			alu_data = 1;
             			break;
         		end else if (operand_a[i] == 1'b1 && operand_b[i] == 1'b0) begin
-        			alu_data = 0;
+        				alu_data = 0;
             			break;
         		end
     		end
@@ -49,12 +46,13 @@ module alu (
 
         end
          
-      4'b0011: begin 						//SLTU
+      4'b0011: begin 				//SLTU
       	for (int i = 31; i >= 0; i = i - 1) begin
         	if (operand_a[i] == 1'b0 && operand_b[i] == 1'b1) begin
             		alu_data = 1;
             		break;
         	end else if (operand_a[i] == 1'b1 && operand_b[i] == 1'b0) begin
+					alu_data = 0;
             		break;
         	end
     	end
@@ -78,5 +76,62 @@ module alu (
   end
 /* verilator lint_on LATCH */
 
-endmodule
+// ALU Branch
+	always_ff begin : alu_compare
+    	if (branch) begin
+			case (br_op) 
+				0:	if (br_equal)  	br_sel = 1;	// BEQ
+				1:	if (!br_equal) 	br_sel = 1;	// BNE
+				2:	if (br_less)   	br_sel = 1;	// BLT
+				3:	if (!br_less)   br_sel = 1; // BGE
+				4:	if (br_less)  	br_sel = 1;	// BLTU
+				5:	if (!br_less) 	br_sel = 1;	// BGEU
+				6:  br_sel = 1;					// JAL
+				7:	br_sel = 1;					// JALR
+			endcase
+		end	else 	br_sel = 0;
+	end    
+      
+/* verilator lint_off LATCH */  
+// Check if equal or less
+	always_ff begin
+		if (rs1_data == rs2_data) begin
+			br_equal = 1;
+			br_less  = 0;		
+		end else begin
+			br_equal = 0;
 
+		//Unsigned compare
+			if (br_op == 4 || br_op == 5)  begin
+				for (int i = 31; i >= 0; i = i - 1) begin
+					if (rs1_data[i] == 1'b0 && rs2_data[i] == 1'b1) begin
+						br_less = 1;
+						break;
+					end else if (rs1_data[i] == 1'b1 && rs2_data[i] == 1'b0) begin
+						br_less = 0;
+						break;
+					end
+				end		
+		//Signed compare
+			end else begin
+				if (rs1_data[31] == 0 && rs2_data[31] == 1) 	   	br_less = 0;
+				
+				else if (rs1_data[31] == 1 && rs2_data[31] == 0) 	br_less = 1;	
+					
+				else begin
+					for (int i = 30; i >= 0; i = i - 1) begin
+						if (rs1_data[i] == 1'b0 && rs2_data[i] == 1'b1) begin
+							br_less = 1;
+							break;
+						end else if (rs1_data[i] == 1'b1 && rs2_data[i] == 1'b0) begin
+							br_less = 0;
+							break;
+						end
+					end
+				end     	
+			end
+		end
+	end
+/* verilator lint_on LATCH */  
+
+endmodule

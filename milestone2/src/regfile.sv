@@ -12,7 +12,7 @@ module regfile (
   output logic [31:0] rs1_data,
   output logic [31:0] rs2_data
 );
-  
+
   // Register file
   logic [31:0] registers [31:0];
 
@@ -31,6 +31,7 @@ module regfile (
     end else begin
       if (rd_wren)
         registers[rd_addr] <= rd_data;
+   
     end
     `ifdef VERILATOR
       /*verilator lint_off UNUSED*/

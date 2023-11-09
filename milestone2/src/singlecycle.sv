@@ -19,7 +19,7 @@ module singlecycle (
   output logic [31:0] 	io_hex7_o
 );
 
-  `define DEBUG
+  // `define VERIFICATION
 
   //LOCAL DECLARATION
     //PC declare
@@ -167,7 +167,7 @@ module singlecycle (
     .mux_o	  (rd_data)
   );
 
-  `ifdef DEBUG  
+  `ifdef VERIFICATION  
   instr_test test0(
     .clk_i       (clk_i),
     .pc_debug    (pc_debug_o),
@@ -184,7 +184,7 @@ module singlecycle (
   	pc_four     = pc + 4;	
   	pc_debug_o  = pc;
     instr	= instr_memory[pc >> 2] ;
-    `ifdef DEBUG
+    `ifdef VERIFICATION
     /*verilator lint_off UNUSED*/
       instr	= instr_debug_i;
     /*verilator lint_on UNUSED*/

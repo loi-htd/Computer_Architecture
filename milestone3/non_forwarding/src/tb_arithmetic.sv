@@ -15,7 +15,7 @@ module instr_test (
   initial begin
     $readmemh("../mem/instruction_mem.data",instruction);
   end
-  assign instruction[2] = 32'h002081B3;     // add  x3, x1, x2   //unused
+  // assign instruction[2] = 32'h002081B3;     // add  x3, x1, x2   //unused
   assign instruction[3] = 32'h002081B3;     // add  x3, x1, x2 
   assign instruction[4] = 32'h40208233;     // sub x4, x1, x2 
   assign instruction[5] = 32'h002092B3;     // sll x5, x1, x2 

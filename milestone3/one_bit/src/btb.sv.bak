@@ -1,0 +1,106 @@
+module btb(
+	input logic 		clk_i,
+	/* verilator lint_off UNUSED */
+	input logic 		rst_ni,
+	input logic [31:0] 	pc_if,
+	 /* verilator lint_on UNUSED */
+	input logic 		branch_id,
+
+	input logic [31:0]	pc_four_mem,
+	input logic			branch_mem,
+	input logic 		br_sel_mem,
+	input logic	[31:0]	alu_data_mem,
+
+	output logic [31:0] predicted_pc_o,
+	output logic 		hit_o,
+	output logic 		mis_hit_o
+);
+
+logic [7:0] 	index_if;
+logic [21:0]	tag_if;
+
+/// FOR CHECKING MIS HIT
+ /* verilator lint_off UNUSED */
+logic [31:0]	pc_mem;
+logic [21:0]	tag_mem;
+ /* verilator lint_on UNUSED */
+logic [7:0]		index_mem;
+
+/* verilator lint_off UNOPTFLAT */
+typedef struct packed{
+	logic 		 hit;
+    logic [21:0] tag;
+    logic [31:0] predicted_pc;
+  } BTB_Table;
+
+BTB_Table myBTB[255:0];
+/* verilator lint_on UNOPTFLAT */
+
+
+/* verilator lint_off LATCH */
+
+always_comb begin 	
+	predicted_pc_o = 32'b0;
+	hit_o		   = 1'b0;
+	mis_hit_o 	   = 0;
+
+	index_if = pc_if[9:2];
+	tag_if	 = pc_if[31:10];	
+
+	pc_mem 	 = pc_four_mem - 4;
+	index_mem = pc_mem[9:2];
+	tag_mem	= pc_mem[31:10];
+
+	if (!rst_ni) begin
+		for (int i = 0; i < 1024; i++) begin
+			myBTB[i].tag = 22'b0;
+			myBTB[i].predicted_pc = 32'b0;
+			myBTB[i].hit = 1'b0;
+		end
+	end else begin
+		/// Detect_Miss_Hit
+		if ((br_sel_mem) && (myBTB[index_mem].predicted_pc != alu_data_mem)) begin
+			mis_hit_o = 1;	
+			hit_o 	  = 1;	
+			predicted_pc_o = alu_data_mem;	
+		end else if ((!br_sel_mem) && (myBTB[index_mem].hit == 1)) begin
+			mis_hit_o = 1;
+			hit_o 	  = 1;
+			predicted_pc_o = pc_four_mem;
+		/// Hit
+		end else if (((branch_id)) && (tag_if == myBTB[index_if].tag) && (myBTB[index_if].predicted_pc != 0)) begin
+			hit_o = 1 ;
+			predicted_pc_o 	= myBTB[index_if].predicted_pc;	
+		end
+	end	
+	
+	//$writememh("../mem/BranchTargetBuffer.data", myBTB);
+end
+/* verilator lint_on LATCH */
+
+always @(posedge clk_i) begin 
+	if (($past(branch_mem))) begin
+		myBTB[$past(index_mem)].predicted_pc 	<= $past(alu_data_mem);
+		myBTB[$past(index_mem)].tag		  		<= $past(tag_mem);
+		if ($past(tag_mem) == myBTB[$past(index_mem)].tag)
+			myBTB[$past(index_mem)].hit 			<= 1;
+	end
+
+	/*
+		logic [31:0] branch_array [0:1023];
+		logic [31:0] alu_array [0:1023];
+		logic [31:0] index_if_array [0:1023];
+		int j;
+		branch_array[j][0]	<= branch_id;
+		alu_array[j]		<= alu_data_mem;
+		index_if_array[j]		<= {24'b0,index_if};
+		$writememh("../mem/branch_btb.data", branch_array);	
+		$writememh("../mem/index_if.data", index_if_array);	
+		$writememh("../mem/alu_btb.data", alu_array);	
+	j <= j +1;
+	*/
+
+end
+
+endmodule
+

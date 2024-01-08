@@ -4,4 +4,3 @@
 ../src/mux_2.sv
 ../src/regfile.sv
 ../src/singlecycle.sv
-../src/instr_test.sv

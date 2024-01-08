@@ -1,0 +1,15 @@
+../src/alu.sv
+../src/mux_2.sv
+../src/decoder.sv
+../src/lsu.sv
+../src/regfile.sv
+../src/singlecycle.sv
+../src/if_id.sv
+../src/id_ex.sv
+../src/ex_mem.sv
+../src/mem_wb.sv
+../src/hazard_detect.sv
+../src/mux_3.sv
+../src/forward_unit.sv
+../src/register_control.sv
+../src/instr_test.sv

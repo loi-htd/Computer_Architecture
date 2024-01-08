@@ -1,0 +1,145 @@
+module alu (
+
+//Input
+  input logic [31:0] operand_a,
+  input logic [31:0] operand_b,
+  input logic [31:0] rs1_data,
+  input logic [31:0] rs2_data,
+  input logic [3:0]  alu_op,
+  input logic [2:0]  br_op,			
+  input logic		 branch,
+//Output
+  output logic 		   br_sel,			
+  output logic [31:0]  alu_data
+);
+
+//Local declaration
+  logic   br_less;
+  logic   br_equal;
+
+
+  logic compr_less;
+  logic compr_sign_a;
+  logic compr_sign_b;
+
+  logic br_cal_less;
+  logic br_cal_sign_a;
+  logic br_cal_sign_b;
+
+  always_comb begin : proc_compare
+    compr_sign_a = 1'b0;
+    compr_sign_b = 1'b0;
+    if (alu_op == 4'b0010) begin
+      compr_sign_a = operand_a[31];
+      compr_sign_b = operand_b[31];
+    end
+
+    compr_less = ($signed({compr_sign_a, operand_a})
+                < $signed({compr_sign_b, operand_b}));
+  end
+
+  always_comb begin : br_cal
+    br_cal_sign_a = 1'b0;
+    br_cal_sign_b = 1'b0;
+    if (alu_op == 4'b0010) begin
+      br_cal_sign_a = rs1_data[31];
+      br_cal_sign_b = rs2_data[31];
+    end
+
+    br_cal_less = ($signed({br_cal_sign_a, rs1_data})
+                < $signed({br_cal_sign_b, rs2_data}));
+  end
+
+// ALU calculation
+/* verilator lint_off LATCH */
+  always_comb begin : alu_cal
+    case (alu_op)
+      4'b0000:						//ADD			
+		alu_data =  operand_a + operand_b ; 
+      
+      4'b0001: 				  		//SUB
+	  	alu_data =  operand_a + (~operand_b + 1);
+      	
+      4'b0010: 	//SLT
+	  alu_data = {31'b0, compr_less};
+	  /*begin 				
+      	if (operand_a[31] == 0 && operand_b[31] == 1) 	   alu_data = 0;
+      	
+      	else if (operand_a[31] == 1 && operand_b[31] == 0) alu_data = 1;	
+      	
+        else begin
+        	for (int i = 30; i >= 0; i = i - 1) begin
+        		if (operand_a[i] == 1'b0 && operand_b[i] == 1'b1) begin
+            			alu_data = 1;
+            			break;
+        		end else if (operand_a[i] == 1'b1 && operand_b[i] == 1'b0) begin
+        				alu_data = 0;
+            			break;
+        		end
+    		end
+        end
+
+        end
+         */
+      4'b0011: //SLTU
+	  alu_data = {31'b0, compr_less};
+	  /*begin 				
+      	for (int i = 31; i >= 0; i = i - 1) begin
+        	if (operand_a[i] == 1'b0 && operand_b[i] == 1'b1) begin
+            		alu_data = 1;
+            		break;
+        	end else if (operand_a[i] == 1'b1 && operand_b[i] == 1'b0) begin
+					alu_data = 0;
+            		break;
+        	end
+    	end
+          	
+      	end
+      */
+      4'b0100: alu_data = operand_a ^ operand_b ;  		//XOR
+      
+      4'b0101: alu_data = operand_a | operand_b ;  		//OR
+      
+      4'b0110: alu_data = operand_a & operand_b ;  		//AND
+      
+      4'b0111: alu_data = operand_a << operand_b[4:0] ;  	//SLL
+      
+      4'b1000: alu_data = operand_a >> operand_b[4:0] ;  	//SRL
+      
+      4'b1001: alu_data = $signed(operand_a) >>> operand_b[4:0] ;  	//SRA
+      
+      default: alu_data = 0 ;
+    endcase
+  end
+/* verilator lint_on LATCH */
+
+// ALU Branch
+	always_comb begin : alu_compare
+	br_sel = 0;
+    	if (branch) begin
+			case (br_op) 
+				0:	if (br_equal)  	br_sel = 1;	// BEQ
+				1:	if (!br_equal) 	br_sel = 1;	// BNE
+				2:	if (br_less)   	br_sel = 1;	// BLT
+				3:	if (!br_less)   br_sel = 1; // BGE
+				4:	if (br_less)  	br_sel = 1;	// BLTU
+				5:	if (!br_less) 	br_sel = 1;	// BGEU
+				6:  br_sel = 1;					// JAL
+				7:	br_sel = 1;					// JALR
+			endcase
+		end	else 	br_sel = 0;
+	end    
+      
+
+// Check if equal or less
+	always_comb begin
+		if (rs1_data == rs2_data) begin
+			br_equal = 1;
+		end else begin
+			br_equal = 0;
+		end
+		br_less = br_cal_less	
+	end
+
+
+endmodule : alu

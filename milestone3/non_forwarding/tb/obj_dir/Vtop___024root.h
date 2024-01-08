@@ -24,8 +24,6 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__dut__DOT__op_b_sel_id;
         CData/*0:0*/ top__DOT__dut__DOT__branch_id;
         CData/*3:0*/ top__DOT__dut__DOT__alu_op_id;
-        CData/*2:0*/ top__DOT__dut__DOT__br_op_id;
-        CData/*3:0*/ top__DOT__dut__DOT__ld_op_id;
         CData/*0:0*/ top__DOT__dut__DOT__mem_wren_id;
         CData/*0:0*/ top__DOT__dut__DOT__is_load_id;
         CData/*0:0*/ top__DOT__dut__DOT__jump_id;
@@ -64,37 +62,30 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__dut__DOT__rst_mem_wb;
         CData/*1:0*/ top__DOT__dut__DOT__hazard_op;
         CData/*0:0*/ top__DOT__dut__DOT__rst_wait;
-        CData/*0:0*/ top__DOT__dut__DOT__alu0__DOT__br_less;
-        CData/*0:0*/ top__DOT__dut__DOT__alu0__DOT__br_equal;
+        CData/*1:0*/ top__DOT__dut__DOT__lsu0__DOT__b_remainder;
+        CData/*1:0*/ top__DOT__dut__DOT__lsu0__DOT__b_remainder_1;
+        CData/*1:0*/ top__DOT__dut__DOT__lsu0__DOT__b_remainder_2;
+        CData/*1:0*/ top__DOT__dut__DOT__lsu0__DOT__b_remainder_3;
         CData/*3:0*/ top__DOT__dut__DOT__lsu0__DOT__addr_sel;
         CData/*3:0*/ top__DOT__dut__DOT__lsu0__DOT___Vpast_0_0;
         CData/*0:0*/ top__DOT__dut__DOT__lsu0__DOT___Vpast_1_0;
-        CData/*4:0*/ __Vdlyvdim0__top__DOT__dut__DOT__regfile0__DOT__registers__v0;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__regfile0__DOT__registers__v0;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__regfile0__DOT__registers__v1;
-        CData/*4:0*/ __Vdlyvlsb__top__DOT__dut__DOT__lsu0__DOT__mem_data__v0;
-        CData/*7:0*/ __Vdlyvval__top__DOT__dut__DOT__lsu0__DOT__mem_data__v0;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__lsu0__DOT__mem_data__v0;
-        CData/*4:0*/ __Vdlyvlsb__top__DOT__dut__DOT__lsu0__DOT__mem_data__v1;
-        CData/*7:0*/ __Vdlyvval__top__DOT__dut__DOT__lsu0__DOT__mem_data__v1;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__lsu0__DOT__mem_data__v1;
-        CData/*4:0*/ __Vdlyvlsb__top__DOT__dut__DOT__lsu0__DOT__mem_data__v2;
-    };
-    struct {
-        CData/*7:0*/ __Vdlyvval__top__DOT__dut__DOT__lsu0__DOT__mem_data__v2;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__lsu0__DOT__mem_data__v2;
-        CData/*4:0*/ __Vdlyvlsb__top__DOT__dut__DOT__lsu0__DOT__mem_data__v3;
-        CData/*7:0*/ __Vdlyvval__top__DOT__dut__DOT__lsu0__DOT__mem_data__v3;
-        CData/*0:0*/ __Vdlyvset__top__DOT__dut__DOT__lsu0__DOT__mem_data__v3;
+        CData/*0:0*/ __Vdly__top__DOT__dut__DOT__mem_wren_mem;
+        CData/*3:0*/ __Vdly__top__DOT__dut__DOT__ld_op_mem;
+        CData/*4:0*/ __Vdly__top__DOT__dut__DOT__rd_addr_wb;
+        CData/*0:0*/ __Vdly__top__DOT__dut__DOT__jump_wb;
+        CData/*0:0*/ __Vdly__top__DOT__dut__DOT__is_load_wb;
+        CData/*0:0*/ __Vdly__top__DOT__dut__DOT__rd_wren_wb;
         CData/*0:0*/ __VinpClk__TOP__top__DOT__dut__DOT__rst_if_id;
         CData/*0:0*/ __Vclklast__TOP__clk_i;
         CData/*0:0*/ __Vclklast__TOP__rst_ni;
         CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__top__DOT__dut__DOT__rst_if_id;
+    };
+    struct {
         CData/*0:0*/ __Vchglast__TOP__top__DOT__dut__DOT__rst_if_id;
-        SData/*8:0*/ __Vdlyvdim0__top__DOT__dut__DOT__lsu0__DOT__mem_data__v0;
-        SData/*8:0*/ __Vdlyvdim0__top__DOT__dut__DOT__lsu0__DOT__mem_data__v1;
-        SData/*8:0*/ __Vdlyvdim0__top__DOT__dut__DOT__lsu0__DOT__mem_data__v2;
-        SData/*8:0*/ __Vdlyvdim0__top__DOT__dut__DOT__lsu0__DOT__mem_data__v3;
+        SData/*8:0*/ top__DOT__dut__DOT__lsu0__DOT__a_divisor;
+        SData/*8:0*/ top__DOT__dut__DOT__lsu0__DOT__a_divisor_1;
+        SData/*8:0*/ top__DOT__dut__DOT__lsu0__DOT__a_divisor_2;
+        SData/*8:0*/ top__DOT__dut__DOT__lsu0__DOT__a_divisor_3;
         VL_IN(io_sw_i,31,0);
         VL_OUT(pc_debug_o,31,0);
         VL_OUT(io_lcd_o,31,0);
@@ -130,10 +121,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__dut__DOT__alu_data_wb;
         IData/*31:0*/ top__DOT__dut__DOT__ld_data_wb;
         IData/*31:0*/ top__DOT__dut__DOT__regfile0__DOT__proc_write_regfile__DOT__unnamedblk1__DOT__i;
-        IData/*31:0*/ top__DOT__dut__DOT__alu0__DOT__alu_cal__DOT__unnamedblk1__DOT__i;
-        IData/*31:0*/ top__DOT__dut__DOT__alu0__DOT__alu_cal__DOT__unnamedblk2__DOT__i;
-        IData/*31:0*/ top__DOT__dut__DOT__alu0__DOT__unnamedblk3__DOT__i;
-        IData/*31:0*/ top__DOT__dut__DOT__alu0__DOT__unnamedblk4__DOT__i;
         IData/*31:0*/ top__DOT__dut__DOT__lsu0__DOT____Vxrand_h96fd10a2__0;
         IData/*31:0*/ top__DOT__dut__DOT__lsu0__DOT__periph_in;
         IData/*31:0*/ top__DOT__dut__DOT__lsu0__DOT__lw_data;
@@ -141,16 +128,19 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__dut__DOT__lsu0__DOT____Vlvbound_h5ca078b8__0;
         IData/*31:0*/ top__DOT__dut__DOT__lsu0__DOT____Vlvbound_h5ca078b8__1;
         IData/*31:0*/ top__DOT__dut__DOT__test0__DOT__count_clk;
+        IData/*31:0*/ top__DOT__dut__DOT__test0__DOT__count_instr;
+        IData/*31:0*/ top__DOT__dut__DOT__test0__DOT___Vpast_0_0;
         IData/*31:0*/ __Vdly__top__DOT__dut__DOT__pc_if;
-        IData/*31:0*/ __Vdlyvval__top__DOT__dut__DOT__regfile0__DOT__registers__v0;
+        IData/*31:0*/ __Vdly__top__DOT__dut__DOT__rs2_data_mem;
+        IData/*31:0*/ __Vdly__top__DOT__dut__DOT__alu_data_wb;
+        IData/*31:0*/ __Vdly__top__DOT__dut__DOT__pc_four_wb;
+        IData/*31:0*/ __Vdly__top__DOT__dut__DOT__ld_data_wb;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__dut__DOT__regfile0__DOT__registers;
         VlUnpacked<IData/*31:0*/, 512> top__DOT__dut__DOT__lsu0__DOT__mem_data;
-    };
-    struct {
         VlUnpacked<IData/*31:0*/, 13> top__DOT__dut__DOT__lsu0__DOT__data_out;
         VlUnpacked<IData/*31:0*/, 1024> top__DOT__dut__DOT__test0__DOT__instruction;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__dut__DOT__test0__DOT__debug_reg;
-        VlUnpacked<CData/*0:0*/, 6> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 7> __Vm_traceActivity;
     };
 
     // INTERNAL VARIABLES

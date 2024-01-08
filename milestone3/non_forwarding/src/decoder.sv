@@ -19,6 +19,133 @@ module decoder(
   output logic        is_load       // 0 if alu_data, 1 if ld_data
 );
 
+   // Assign ALU_OP 
+    always_comb begin : proc_alu_bru
+      if ((instr[6:0] == 7'b011_00_11) ) begin    //R-R TYPE
+        case (instr[14:12])             
+        3'b000: begin
+          if (instr[30] == 0) //add
+          alu_op = 4'b0;  
+          else alu_op = 4'b0001;
+        end
+        3'b010: begin 
+          alu_op = 4'b0010;  //slt
+          end
+        3'b011: begin
+          alu_op = 4'b0011;  //sltu
+          end
+        3'b100: begin
+          alu_op = 4'b0100;  //xor
+          end
+        3'b110: begin
+          alu_op = 4'b0101;  //or
+          end
+        3'b111: begin
+          alu_op = 4'b0110;  //and
+          end
+        3'b001: begin
+          alu_op = 4'b0111;  //sll
+          end
+        3'b101: begin
+          if (instr[30] == 0) //srli
+            alu_op = 4'b1000;  //srl
+          else  alu_op = 4'b1001;  //sra
+        end
+        endcase
+
+      end else if ((instr[6:0] == 7'b001_00_11)) begin     //Imm TYPE
+          case (instr[14:12])             
+            3'b000: begin
+              alu_op = 4'b0;  
+            end
+            3'b010: begin 
+              alu_op = 4'b0010;  //slt
+              end
+            3'b011: begin
+              alu_op = 4'b0011;  //sltu
+              end
+            3'b100: begin
+              alu_op = 4'b0100;  //xor
+              end
+            3'b110: begin
+              alu_op = 4'b0101;  //or
+              end
+            3'b111: begin
+              alu_op = 4'b0110;  //and
+              end
+            3'b001: begin
+              alu_op = 4'b0111;  //sll
+              end
+            3'b101: begin
+              if (instr[30] == 0) //srli
+                alu_op = 4'b1000;  //srl
+              else  alu_op = 4'b1001;  //sra
+            end
+          endcase
+          
+        end else alu_op = 0;
+    end
+
+    // Assign Load-Store Option
+    always_comb begin: load_Store_op
+       if ((instr[6:0] == 7'b000_00_11) || (instr[6:0] == 7'b010_00_11)) begin
+         case (instr[14:12])
+          3'b000: begin // LB and SB
+            ld_op = 4'b1001;
+          end
+          3'b001: begin // LH and SH
+            ld_op = 4'b1011;
+          end
+          3'b010: begin // LW and SW
+            ld_op = 4'b1111;
+          end
+          3'b100: begin // LBU
+            ld_op = 4'b0001;
+          end
+          3'b101: begin // LHU
+            ld_op = 4'b0011;
+          end
+          default: begin
+            ld_op = 4'b0000;
+          end
+        endcase
+       end else ld_op = 0;
+    end
+
+    // Assign Branch Option
+    always_comb begin: branch_op
+      if (instr[6:0] == 7'b110_00_11) begin
+        case (instr[14:12]) 
+          3'b000: begin
+            br_op = 0;  //BEQ
+          end
+          3'b001: begin
+            br_op = 1;  //BNE
+            end
+          3'b100: begin
+            br_op = 2;  //BLT
+            end
+          3'b101: begin
+            br_op = 3;  //BGE
+            end
+          3'b110: begin
+            br_op = 4;  //BLTU
+            end
+          3'b111: begin
+            br_op = 5;  //BGEU
+            end
+          default: br_op = 0;
+        endcase
+
+      end else if (instr[6:0] == 7'b110_11_11) begin
+           br_op      = 6; 
+
+      end  else if (instr[6:0] == 7'b110_01_11) begin
+           br_op      = 7;   
+
+      end  else br_op = 0; 
+    end
+
 // Register Addresses and Signals
   always_comb begin : proc_signals
     rs1_addr   = 5'h0;
@@ -31,10 +158,6 @@ module decoder(
     is_load    = 1'b0;
     branch     = 1'b0;
     jump       = 1'b0;
-    alu_op     = 0;
-    br_op      = 0;
-    ld_op      = 0;
-
     case (instr[6:0])
       // Register - Register
       7'b011_00_11: begin
@@ -45,28 +168,6 @@ module decoder(
         rd_wren    = 1'b1;
         op_a_sel   = 1'b0;
         op_b_sel   = 1'b0;
-
-          // Assign ALU_OP 
-        if (instr[14:12] == 3'b000)
-          if (instr[30] == 0) //add
-            alu_op = 4'b0;  
-          else  alu_op = 4'b0001;  //sub
-        else if (instr[14:12] == 3'b010) 
-          alu_op = 4'b0010;  //slt
-        else if (instr[14:12] == 3'b011) 
-          alu_op = 4'b0011;  //sltu
-        else if (instr[14:12] == 3'b100) 
-          alu_op = 4'b0100;  //xor
-        else if (instr[14:12] == 3'b110) 
-          alu_op = 4'b0101;  //or
-        else if (instr[14:12] == 3'b111) 
-          alu_op = 4'b0110;  //and
-        else if (instr[14:12] == 3'b001) 
-          alu_op = 4'b0111;  //sll
-        else if (instr[14:12] == 3'b101)
-          if (instr[30] == 0) //srl
-            alu_op = 4'b1000;  
-          else  alu_op = 4'b1001;  //sra
       end
 
       // Immediate - Register
@@ -77,26 +178,6 @@ module decoder(
         rd_wren    = 1'b1;
         op_a_sel   = 1'b0;
         op_b_sel   = 1'b1;
-
-            // Assign ALU_OP 
-        if (instr[14:12] == 3'b000) //addi
-          alu_op = 4'b0;  //add
-        else if (instr[14:12] == 3'b010) //slti
-          alu_op = 4'b0010;  //slt
-        else if (instr[14:12] == 3'b011) //sltiu
-          alu_op = 4'b0011;  //sltu
-        else if (instr[14:12] == 3'b100) //xori
-          alu_op = 4'b0100;  //xor
-        else if (instr[14:12] == 3'b110) //ori
-          alu_op = 4'b0101;  //or
-        else if (instr[14:12] == 3'b111) //andi
-          alu_op = 4'b0110;  //and
-        else if (instr[14:12] == 3'b001) //slli
-          alu_op = 4'b0111;  //sll
-        else if (instr[14:12] == 3'b101)
-          if (instr[30] == 0) //srli
-            alu_op = 4'b1000;  //srl
-          else  alu_op = 4'b1001;  //sra
       end
 
       // Load
@@ -108,28 +189,6 @@ module decoder(
         op_a_sel   = 1'b0;
         op_b_sel   = 1'b1;
         is_load    = 1'b1;
-        alu_op = 4'b0;  //add
-        // Load-Store Option
-        case (instr[14:12])
-          3'b000: begin // LB and SB
-            ld_op = 4'b1001;
-          end
-          3'b001: begin // LH and SH
-            ld_op = 4'b1011;
-          end
-          3'b010: begin // LW and SW
-            ld_op = 4'b1111;
-          end
-          3'b100: begin // LBU
-            ld_op = 4'b0001;
-          end
-          3'b101: begin // LHU
-            ld_op = 4'b0011;
-          end
-          default: begin
-            ld_op = 4'b0000;
-          end
-        endcase
       end
 
       // Store
@@ -140,51 +199,17 @@ module decoder(
         op_a_sel   = 1'b0;
         op_b_sel   = 1'b1;
         mem_wren   = 1'b1;
-        alu_op = 4'b0;  //add
-        // Load-Store Option
-        case (instr[14:12])
-          3'b000: begin // LB and SB
-            ld_op = 4'b1001;
-          end
-          3'b001: begin // LH and SH
-            ld_op = 4'b1011;
-          end
-          3'b010: begin // LW and SW
-            ld_op = 4'b1111;
-          end
-          3'b100: begin // LBU
-            ld_op = 4'b0001;
-          end
-          3'b101: begin // LHU
-            ld_op = 4'b0011;
-          end
-          default: begin
-            ld_op = 4'b0000;
-          end
-        endcase
       end
 
       // Conditional Branch
       7'b110_00_11: begin
-        // OP_BRANCH : begin
+        // OP_BRANCH 
         rs1_addr   = instr[19:15];
         rs2_addr   = instr[24:20];
         op_a_sel   = 1'b1;
         op_b_sel   = 1'b1;
         branch     = 1'b1;
-        jump       = 1'b0;
-        alu_op = 4'b0;  //add
-
-        // Assign Branch OP
-        case (instr[14:12])
-          3'b000: br_op = 0;  //BEQ
-          3'b001: br_op = 1;  //BNE
-          3'b100: br_op = 2;  //BLT
-          3'b101: br_op = 3;  //BGE
-          3'b110: br_op = 4;  //BLTU
-          3'b111: br_op = 5;  //BGEU
-          default: br_op = 0;
-        endcase
+        jump       = 1'b0;  
       end
       // Jump and Link
       7'b110_11_11: begin
@@ -195,8 +220,7 @@ module decoder(
         op_b_sel   = 1'b1;
         branch     = 1'b1;
         jump       = 1'b1;
-        alu_op     = 4'b0;  //add
-        br_op      = 6;
+
       end
       // Jump and Link Register
       7'b110_01_11: begin
@@ -208,8 +232,6 @@ module decoder(
         op_b_sel   = 1'b1;
         branch     = 1'b1;
         jump       = 1'b1;
-        alu_op     = 4'b0;  //add
-        br_op      = 7;
       end
       // Load Upper Immediate
       7'b011_01_11: begin
@@ -219,7 +241,6 @@ module decoder(
         rd_wren    = 1'b1;
         op_a_sel   = 1'b0;
         op_b_sel   = 1'b1;
-        alu_op     = 4'b0;  //add
       end
       // Add Upper Immediate PC
       7'b001_01_11: begin
@@ -228,9 +249,7 @@ module decoder(
         rd_wren    = 1'b1;
         op_a_sel   = 1'b1;
         op_b_sel   = 1'b1;
-        alu_op     = 4'b0;  //add
       end
-
       default: begin
       end
     endcase

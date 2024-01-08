@@ -319,7 +319,7 @@ module singlecycle (
 
   register_control register_control_0 (
     .rst_ni         (rst_reg),
-    .hazard_op       (hazard_op),
+    .hazard_op      (hazard_op),
     .enable_if_id   (enable_if_id),
     .enable_id_ex   (enable_id_ex),
     .enable_ex_mem  (enable_ex_mem),
@@ -330,6 +330,7 @@ module singlecycle (
     .rst_mem_wb     (rst_mem_wb)
     
   );
+  
   hazard_detect hazard_detect_0(
     .rd_addr_ex_i   (rd_addr_ex),
     .rd_wren_ex_i   (rd_wren_ex),
@@ -340,11 +341,11 @@ module singlecycle (
     .r1_addr_id_i   (rs1_addr_id),
     .r2_addr_id_i   (rs2_addr_id),
 
-    .br_sel_i       (br_sel_ex),
+    .br_sel_i       (br_sel_mem),
 
     .hazard_op      (hazard_op)
   );
-  /* verilator lint_off UNUSED */
+    /* verilator lint_off UNUSED */
   logic [31:0] instr_debug_i;
   /* verilator lint_on UNUSED */
   `define VERIFICATION
@@ -355,21 +356,6 @@ module singlecycle (
     .instr_debug (instr_debug_i)
   );
   `endif
-  /*always_comb begin : mux_pc
-		nxt_pc  = br_sel? alu_data : pc_four ;	
-	end*/
-    /*always_comb begin : mux_op_a
-		operand_a  = op_a_sel? pc : rs1_data ;	
-	end*/
-  /*always_comb begin : mux_op_b
-		operand_b  = op_b_sel? imm : rs2_data ;	
-	end*/
-    /*always_comb begin : mux_wb_data
-		wb_data  = is_load? ld_data : alu_data ;	
-	end */
- /*always_comb begin : mux_jump
-		rd_data  = jump? pc_four : wb_data ;	
-	end*/
 
 //Load Instruction file 
 logic rst_wait;
@@ -408,4 +394,11 @@ logic rst_wait;
     end
   end
 
+ /*
+// DEBUGGING  
+  always @(negedge clk_i or negedge rst_ni) begin 
+    $display("pc : %h,  pc_id: %h, pc_ex: %h ,pc_mem :%h",pc_if, pc_id, pc_ex ,pc_four_mem-4);
+	end
+*/
 endmodule : singlecycle
+

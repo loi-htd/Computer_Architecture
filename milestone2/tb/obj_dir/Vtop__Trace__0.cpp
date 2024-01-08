@@ -79,7 +79,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedFst::Buffe
         bufp->chgIData(oldp+50,(((IData)(vlSelf->top__DOT__dut__DOT__br_sel)
                                   ? vlSelf->top__DOT__dut__DOT__alu_data
                                   : ((IData)(4U) + vlSelf->top__DOT__dut__DOT__pc))),32);
-        bufp->chgIData(oldp+51,(vlSelf->top__DOT__dut__DOT__instr_debug_i),32);
+        bufp->chgIData(oldp+51,(vlSelf->top__DOT__dut__DOT__instr),32);
         bufp->chgCData(oldp+52,(vlSelf->top__DOT__dut__DOT__rs1_addr),5);
         bufp->chgCData(oldp+53,(vlSelf->top__DOT__dut__DOT__rs2_addr),5);
         bufp->chgCData(oldp+54,(vlSelf->top__DOT__dut__DOT__rd_addr),5);

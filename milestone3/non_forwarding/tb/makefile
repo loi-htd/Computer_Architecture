@@ -74,6 +74,7 @@ MF_DIR := .
 SRC_DIR := $(MF_DIR)/verify/source
 OUTPUT_DIR := $(MF_DIR)/verify/output
 SV_DIR := .$(MF_DIR)/src
+MEM_DIR := .$(MF_DIR)/mem
 
 # Define testbench targets
 TB_ARITH := 1
@@ -151,3 +152,10 @@ verify:
 	done
 	@gcc -o $(OUTPUT_DIR)/summary $(SRC_DIR)/summary.c
 	$(OUTPUT_DIR)/summary
+
+# Calculate CPI
+.PHONY: cpi
+cpi:
+	cp $(MEM_DIR)/application_mem.data $(MEM_DIR)/instruction_mem.data
+	cp $(SV_DIR)/tb_cpi.sv $(SV_DIR)/instr_test.sv
+	make sim

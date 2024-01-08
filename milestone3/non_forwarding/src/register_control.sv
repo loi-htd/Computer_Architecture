@@ -25,24 +25,28 @@ module register_control (
       rst_ex_mem    = 0;
       rst_mem_wb    = 0;
    end else begin   
-      if (hazard_op == 1) begin           // DATA
+     if (hazard_op == 2) begin     //CONTROL
+        enable_if_id  = 0;
+        enable_id_ex  = 0;
+        enable_ex_mem = 0;
+        enable_mem_wb = 1;
+        
+        rst_if_id     = 0;
+        rst_id_ex     = 0;
+        rst_ex_mem    = 0;
+        rst_mem_wb    = 1;
+
+      end else if (hazard_op == 1) begin           // DATA
         enable_if_id  = 0;
         enable_id_ex  = 0;
         enable_ex_mem = 1;
         enable_mem_wb = 1;
+        
         rst_if_id     = 1;
         rst_id_ex     = 0;
         rst_ex_mem    = 1;
         rst_mem_wb    = 1;
-      end else if (hazard_op == 2) begin     //CONTROL
-        enable_if_id  = 0;
-        enable_id_ex  = 0;
-        enable_ex_mem = 1;
-        enable_mem_wb = 1;
-        rst_if_id     = 0;
-        rst_id_ex     = 0;
-        rst_ex_mem    = 1;
-        rst_mem_wb    = 1;
+      
       end else begin 
         enable_if_id  = 1;
         enable_id_ex  = 1;

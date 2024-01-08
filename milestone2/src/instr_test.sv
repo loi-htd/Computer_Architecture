@@ -10,10 +10,10 @@ module instr_test (
 // `define TB_ARITHMETIC
   // `define IMMEDIATE
   // `define REGISTER
-// `define TB_JUMP
+`define TB_JUMP
 // `define TB_BRANCH
 // `define TB_LOAD_STORE
-`define TB_FULL
+// `define TB_FULL
 
 /* Local parameter */
   /* verilator lint_off UNDRIVEN */

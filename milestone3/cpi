@@ -1,0 +1,10 @@
+                SUM OF ARRAY        GCD          SUM OF ARRAY | GCD   
+    MODEL       CYCLES              cycle        mis-hit    branch     wrong_percent 
+singlecycle:    105                 95           
+non_forward:    288                 235
+forward:        188                 180
+always_taken:   131                 158          2  29      20 83      10%   34%     
+onebit:         157                 121          2  9       20 65      10%   13%
+twobit:         158                 133          3  14      20 71      15%   19%
+                        105                 95
+

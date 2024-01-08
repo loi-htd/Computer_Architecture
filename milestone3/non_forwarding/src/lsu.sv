@@ -50,6 +50,23 @@ module lsu (
 
   // Data memory (2KB)
   logic [3:0][7:0] mem_data [511:0]; 
+  
+  // Address[10:0] >> 2
+  /* verilator lint_off UNUSED */
+  /* verilator lint_off WIDTH */
+  logic [8:0] a_divisor;
+  logic [1:0] b_remainder; 
+
+   logic [8:0] a_divisor_1;
+  logic [1:0] b_remainder_1; 
+
+   logic [8:0] a_divisor_2;
+  logic [1:0] b_remainder_2; 
+
+   logic [8:0] a_divisor_3;
+  logic [1:0] b_remainder_3; 
+  /* verilator lint_on UNUSED */
+  /* verilator lint_on WIDTH */
 
   // Peripheral in Buffer
   logic [31:0] periph_in;
@@ -76,6 +93,28 @@ module lsu (
                     (addr_memory == ADDR_HEX2) ? SEL_HEX2 :
                     (addr_memory == ADDR_HEX1) ? SEL_HEX1 :
                     (addr_memory == ADDR_HEX0) ? SEL_HEX0 : SEL_DATA;
+/*
+  /// NHO XOA TRUOC KHI CHAY QUARTUS
+    always_ff @(posedge clk_i) begin : proc_store_data
+      if (($past(addr_sel) == SEL_DATA) && $past(st_en))
+        $writememh("../mem/mem_data.data", mem_data);
+    end
+  ///
+*/
+/* verilator lint_off WIDTH */
+   always_comb begin : calculate_ls_addr
+    a_divisor   = addr_memory[10:2];
+    b_remainder = addr_memory[1:0];
+
+    a_divisor_1 = (b_remainder + 1 > 3) ? (a_divisor + 1) : (a_divisor);
+    a_divisor_2 = (b_remainder + 2 > 3) ? (a_divisor + 1) : (a_divisor);
+    a_divisor_3 = (b_remainder + 3 > 3) ? (a_divisor + 1) : (a_divisor);
+    
+    b_remainder_1 = (b_remainder + 1 > 3) ? (b_remainder + 1 - 4) : (b_remainder + 1);
+    b_remainder_2 = (b_remainder + 2 > 3) ? (b_remainder + 2 - 4) : (b_remainder + 2);
+    b_remainder_3 = (b_remainder + 3 > 3) ? (b_remainder + 3 - 4) : (b_remainder + 3);
+   end
+/* verilator lint_on WIDTH */
 
   always_ff @(posedge clk_i or negedge rst_ni) begin : proc_periph_in
     if (!rst_ni) begin
@@ -100,11 +139,14 @@ module lsu (
       SEL_DATA: begin
         
         if (st_en) begin      // store data
-          if (ld_op[0]) mem_data[addr_memory[10:0]>>2][0]   <= st_data[7:0] ;
-          if (ld_op[1]) mem_data[addr_memory[10:0]>>2][1]   <= st_data[15:8] ;
-          if (ld_op[2]) mem_data[addr_memory[10:0]>>2][2]   <= st_data[23:16] ;
-          if (ld_op[2]) mem_data[addr_memory[10:0]>>2][3]  <= st_data[31:24] ;  
+          if (ld_op[0]) mem_data[a_divisor][b_remainder]   <= st_data[7:0] ;
 
+          if (ld_op[1]) mem_data[a_divisor_1][b_remainder_1]   <= st_data[15:8] ;
+
+          if (ld_op[2]) mem_data[a_divisor_2][b_remainder_2]   <= st_data[23:16] ;
+
+          if (ld_op[2]) mem_data[a_divisor_3][b_remainder_3]  <= st_data[31:24] ;  
+        //$display("a_divisor : %h,  b_remainder: %h",a_divisor, b_remainder);
         end
       end 
       default:                // peripheral out
@@ -112,7 +154,6 @@ module lsu (
       endcase
     end
   end
-
   `ifdef VERILATOR
     /*verilator lint_off UNUSED*/
     always_ff @(posedge clk_i) begin : proc_store
@@ -121,16 +162,18 @@ module lsu (
     end
     /*verilator lint_on UNUSED*/
   `endif
-
   // Load data
   always_comb begin : proc_load_data
     if (addr_sel == SEL_DATA && !st_en) begin
-      lw_data[7:0]   = mem_data[addr_memory[10:0]>>2][0] ;
-      lw_data[15:8]  = mem_data[addr_memory[10:0]>>2][1] ;
-      lw_data[23:16] = mem_data[addr_memory[10:0]>>2][2] ;
-      lw_data[31:24] = mem_data[addr_memory[10:0]>>2][3] ;
+      lw_data[7:0]   = mem_data[a_divisor][b_remainder] ;
 
-      if (!ld_op[0]) 
+      lw_data[15:8]  = mem_data[a_divisor_1][b_remainder_1] ;
+
+      lw_data[23:16] = mem_data[a_divisor_2][b_remainder_2] ;
+
+      lw_data[31:24] = mem_data[a_divisor_3][b_remainder_3] ;
+
+       if (!ld_op[0]) 
         ld_data = 0;
       else begin
         ld_data[7:0]     = lw_data[7:0];

@@ -15,13 +15,12 @@ module regfile (
 
   // Register file
   logic [31:0] registers [31:0];
-  // initial begin
-  //   $readmemh("../mem/regfile.data", registers);
-  // end
+
   // Read from register file
   always_comb begin : proc_read_regfile
     rs1_data = registers[rs1_addr];
     rs2_data = registers[rs2_addr];
+          //  $writememh("../mem/regfile.data", registers);
   end
 
   // Write to register file
@@ -33,12 +32,13 @@ module regfile (
     end else begin
       if (rd_wren)
         registers[rd_addr] <= rd_data;
-    end
-        `ifdef VERILATOR
+      `ifdef VERILATOR
       /*verilator lint_off UNUSED*/
       $writememh("../mem/regfile.data", registers);
       /*verilator lint_on UNUSED*/
     `endif
+    end
+
   end
 
 endmodule : regfile

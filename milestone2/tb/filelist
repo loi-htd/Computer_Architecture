@@ -1,0 +1,6 @@
+../src/alu.sv
+../src/decoder.sv
+../src/lsu.sv
+../src/mux_2.sv
+../src/regfile.sv
+../src/singlecycle.sv
